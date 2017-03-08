@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+    config.vm.box = "ubuntu/xenial64"
+
+    config.vm.network "forwarded_port", guest: 4200, host: 4200
+    config.vm.network "forwarded_port", guest: 4300, host: 4300
+
+    config.vm.provider "virtualbox" do |v|
+      v.memory = 1024
+      v.cpus = 2
+    end
+
+    config.vm.provision "shell", inline: <<-SHELL
+        apt-get update
+        add-apt-repository ppa:crate/stable
+        apt-get update
+        apt-get install openjdk-8-jre-headles
+        apt-get install -y crate
+        systemctl enable crate
+        systemctl start crate
+    SHELL
+end
