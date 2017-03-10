@@ -7,4 +7,3 @@ Start the crate db using vagrant
 
 Start jupyter locally and install [requirements.txt](notebooks/requirements.txt)
 
-
